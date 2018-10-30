@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <script type="text/javascript" src="webjars/jquery/2.2.3/jquery.min.js"></script>
+    <script type="text/javascript" src="webjars/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="webjars/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css"/>
+    <script type="text/javascript" th:src="@{js/main.js}" src="../static/js/main.js"></script>
+    <script type="text/javascript" src="webjars/tablesorter/2.15.5/js/jquery.tablesorter.js"></script>
+</head>
+<body>
+<div class="container">
+    <button class="btn btn-success nBtn" style="margin: 20px">New product</button>
+    <div class="card">
+        <div class="card-block">
+            <!--
+            Table sorter is used to sort products in one column by ID (Value) ,
+              - by Product (Alphabetical order),
+              - by Producer (Alphabetical order algorithm),
+              - by Category (Alphabetical order) and
+            by Price (Value );
+            Table-hover is some table style from bootstrap
+            -->
+            <table class="table table-hover tablesorter">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>PRODUCT NAME</th>
+                    <th>PRODUCER</th>
+                    <th>CATEGORY</th>
+                    <th>PRICE</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Used Thymeleaf for getMethods() -->
+                <tr th:each="Products:${data.content}">
+                    <td th:text="${Products.getId()}"></td>
+                    <td th:text="${Products.getproductName()}"></td>
+                    <td th:text="${Products.getProducer()}"></td>
+                    <td th:text="${Products.getCategory()}"></td>
+                    <td th:text="${Products.getPrice()}"></td>
+                    <td>
+                        <a th:href="@{delete/(id=${Products.id})}" class="btn btn-danger delBtn">Delete</a>
+                        <a th:href="@{findOne/(id=${Products.id})}" class="btn btn-primary eBtn">Edit</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <hr/>
+            <!-- This shows the number of pages -->
+            <ul class="nav nav-pills">
+                <li class="nav-item"
+                    th:each="i : ${#numbers.sequence(0,data.totalPages)}">
+                    <a th:href="@{/(page=${i})}" th:text="${i}" class="nav-link"
+                       th:classappend="${currentPage}==${i}?'active':''"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="myForm">
+        <!-- This form is used to add a new product or update an existing one
+         which is linked to main.js and ProductController
+         -->
+        <form th:action="@{/save}" method="post">
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Create or update</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="id" class="col-form-label">Id:</label>
+                                <input type="text" class="form-control" id="id" name="id" value=""/>
+                            </div>
+                            <div class="form-group">
+                                <label for="productName" class="col-form-label">Product name:</label>
+                                <input type="text" class="form-control" id="productName" name="productName" value=""/>
+                            </div>
+                            <div class="form-group">
+                                <label for="producer" class="col-form-label">Producer: </label>
+                                <input type="text" class="form-control" id="producer" name="producer" value=""/>
+                            </div>
+                            <div class="form-group">
+                                <label for="category" class="col-form-label">Category: </label>
+                                <input type="text" class="form-control" id="category" name="category" value=""/>
+                            </div>
+                            <div class="form-group">
+                                <label for="price" class="col-form-label">Price: </label>
+                                <input type="text" class="form-control" id="price" name="price" value=""/>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" value="save"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- This will popup when deleting a product-->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabelMyModal">Delete product</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="alert alert-danger">
+                            Are you sure you want to delete this product ?
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <a href="" class="btn btn-danger" id="delRef">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
