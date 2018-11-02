@@ -1,4 +1,4 @@
-/*
+package com.java2.products.entities;/*
     This is the model class and contains all attributes that Products have.
     Also in this class are added some annotations from Spring and Hibernate Freamwork.
  */
@@ -6,7 +6,6 @@
 
 
 
-package com.java2.multifunctional.entities;
 import org.springframework.stereotype.Service;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

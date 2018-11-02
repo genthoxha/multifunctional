@@ -1,13 +1,12 @@
-
+package com.java2.products.Controllers;
 /*
 .This class has to do with repository methods including crud operations
 .After a method is used a return is included redirect after a PUT or a POST to prevent a refresh of the page
  that would re-trigger the operation
 */
 
-package com.java2.multifunctional.Controllers;
-import com.java2.multifunctional.entities.Products;
-import com.java2.multifunctional.repository.ProductRepository;
+import com.java2.products.entities.Products;
+import com.java2.products.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;

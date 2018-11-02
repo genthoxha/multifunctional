@@ -1,9 +1,8 @@
-
+package com.java2.products;
 // The main class when application start these two methods load first.
-package com.java2.multifunctional;
 
-import com.java2.multifunctional.entities.Products;
-import com.java2.multifunctional.repository.ProductRepository;
+import com.java2.products.entities.Products;
+import com.java2.products.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
